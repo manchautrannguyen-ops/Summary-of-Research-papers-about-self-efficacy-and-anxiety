@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EFL Music Study – Fill in the Blanks</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f13;
+    --surface: #16181f;
+    --card: #1c1f2a;
+    --border: #2a2d3a;
+    --accent: #c8a96e;
+    --accent2: #7eb8a4;
+    --text: #e8e4dc;
+    --muted: #7a7d8a;
+    --correct: #5fba8c;
+    --wrong: #e06c75;
+    --input-bg: #111318;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+    line-height: 1.75;
+  }
+
+  /* Ambient top bar */
+  .topbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .topbar-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.01em;
+  }
+
+  .topbar-score {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .topbar-score span {
+    color: var(--accent2);
+    font-weight: 500;
+  }
+
+  .main-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  /* Hero header */
+  .hero {
+    margin-bottom: 52px;
+    border-left: 3px solid var(--accent);
+    padding-left: 24px;
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .hero h1 em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  /* Section headers */
+  .section {
+    margin-bottom: 40px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--accent2);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Paragraph text with inputs */
+  .passage {
+    font-size: 0.97rem;
+    color: #c8c5bc;
+    line-height: 1.9;
+  }
+
+  .blank-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: bottom;
+    margin: 0 2px;
+    position: relative;
+  }
+
+  .blank-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 1px;
+  }
+
+  .blank {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.88rem;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--accent);
+    color: var(--text);
+    padding: 3px 8px;
+    border-radius: 3px 3px 0 0;
+    outline: none;
+    min-width: 90px;
+    transition: border-color 0.2s, background 0.2s;
+    text-align: center;
+  }
+
+  .blank:focus {
+    border-color: var(--accent);
+    background: #181b24;
+    border-bottom-color: #f0c980;
+  }
+
+  .blank.correct {
+    border-bottom-color: var(--correct);
+    color: var(--correct);
+    background: #0e1f18;
+  }
+
+  .blank.wrong {
+    border-bottom-color: var(--wrong);
+    color: var(--wrong);
+    background: #1f0e10;
+  }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    gap: 14px;
+    margin: 44px 0 0;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    padding: 11px 28px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.18s;
+    text-transform: uppercase;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #0e0f13;
+    font-weight: 500;
+  }
+
+  .btn-primary:hover { background: #deba7e; transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover { color: var(--text); border-color: var(--muted); }
+
+  .btn-reveal {
+    background: transparent;
+    color: var(--accent2);
+    border: 1px solid var(--accent2);
+  }
+
+  .btn-reveal:hover { background: #7eb8a415; }
+
+  /* Results banner */
+  .results-banner {
+    display: none;
+    margin-top: 36px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px 32px;
+    animation: fadeSlide 0.3s ease;
+  }
+
+  .results-banner.show { display: block; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .results-score {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .results-label {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .results-bar-bg {
+    height: 6px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .results-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 99px;
+    transition: width 0.6s ease;
+  }
+
+  .results-detail {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .results-detail strong { color: var(--correct); }
+  .results-detail .miss { color: var(--wrong); }
+
+  @media (max-width: 600px) {
+    .main-wrapper { padding: 32px 18px 60px; }
+    .topbar { padding: 14px 18px; }
+    .hero h1 { font-size: 1.5rem; }
+    .blank { min-width: 70px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-title">EFL Music Study</div>
+  <div class="topbar-score">Filled: <span id="progress">0</span> / 35</div>
+</div>
+
+<div class="main-wrapper">
+
+  <div class="hero">
+    <div class="hero-label">Reading Comprehension Exercise</div>
+    <h1>The Effect of Background Music on<br><em>L2 Speaking Output</em> and Student Perceived Self-Efficacy in an EFL Context</h1>
+    <div class="hero-sub">Horn, Kyle R. Van &nbsp;·&nbsp; Fill in all 35 blanks, then check your answers.</div>
+  </div>
+
+  <!-- PARADIGM -->
+  <div class="section">
+    <div class="section-title">Paradigm</div>
+    <div class="passage">
+      The paper utilizes a mixed-method study design. It combines qualitative analysis of student surveys with quantitative measurements of audio data, specifically implementing paired samples <span class="blank-wrapper"><span class="blank-num">(1)</span><input class="blank" data-answer="t-tests" id="b1" type="text" autocomplete="off" spellcheck="false"></span> to analyze speaking outcomes.
+    </div>
+  </div>
+
+  <!-- THEORETICAL ORIENTATION -->
+  <div class="section">
+    <div class="section-title">Theoretical Orientation</div>
+    <div class="passage">
+      The study is grounded in Bandura's (1977, 1994) theory of self-efficacy, which defines perceived <span class="blank-wrapper"><span class="blank-num">(2)</span><input class="blank" data-answer="competence" id="b2" type="text" autocomplete="off" spellcheck="false"></span> and its role in the self-<span class="blank-wrapper"><span class="blank-num">(3)</span><input class="blank" data-answer="regulation" id="b3" type="text" autocomplete="off" spellcheck="false"></span> of motivation. It also references Krashen's (1982) affective <span class="blank-wrapper"><span class="blank-num">(4)</span><input class="blank" data-answer="filter" id="b4" type="text" autocomplete="off" spellcheck="false"></span> hypothesis, suggesting that background music may help learners lower psychological <span class="blank-wrapper"><span class="blank-num">(5)</span><input class="blank" data-answer="barriers" id="b5" type="text" autocomplete="off" spellcheck="false"></span> to language acquisition.
+    </div>
+  </div>
+
+  <!-- RESEARCH GAP -->
+  <div class="section">
+    <div class="section-title">Research Gap</div>
+    <div class="passage">
+      While the benefits of music on student psyche and performance are well-<span class="blank-wrapper"><span class="blank-num">(6)</span><input class="blank" data-answer="documented" id="b6" type="text" autocomplete="off" spellcheck="false"></span>, the author identifies a "glaring <span class="blank-wrapper"><span class="blank-num">(7)</span><input class="blank" data-answer="hole" id="b7" type="text" autocomplete="off" spellcheck="false"></span>" regarding the effect of background music on L2 oral production. Most existing research focuses on teaching songs <span class="blank-wrapper"><span class="blank-num">(8)</span><input class="blank" data-answer="explicitly" id="b8" type="text" autocomplete="off" spellcheck="false"></span> rather than using music as a background tool to foster output. Furthermore, previous evidence for music's benefits on speaking has often been <span class="blank-wrapper"><span class="blank-num">(9)</span><input class="blank" data-answer="anecdotal" id="b9" type="text" autocomplete="off" spellcheck="false"></span> and lacked quantified examples of student improvement.
+    </div>
+  </div>
+
+  <!-- AIMS, RQs, HYPOTHESES -->
+  <div class="section">
+    <div class="section-title">Aims, Research Questions, and Hypotheses</div>
+    <div class="passage">
+      The study aims to discover if EFL students can measurably improve oral production and if they <span class="blank-wrapper"><span class="blank-num">(10)</span><input class="blank" data-answer="perceive" id="b10" type="text" autocomplete="off" spellcheck="false"></span> themselves as better speakers in the presence of background music.
+      <br><br>
+      Hypotheses: Background music contributes to learner self-efficacy and improves oral production in terms of initial <span class="blank-wrapper"><span class="blank-num">(11)</span><input class="blank" data-answer="start" id="b11" type="text" autocomplete="off" spellcheck="false"></span> time and total words spoken.
+      <br><br>
+      Research Questions:<br>
+      Do students <span class="blank-wrapper"><span class="blank-num">(12)</span><input class="blank" data-answer="perceive" id="b12" type="text" autocomplete="off" spellcheck="false"></span> background music to have a positive effect on their speaking output?<br>
+      With music present, are students more likely to begin a speaking activity <span class="blank-wrapper"><span class="blank-num">(13)</span><input class="blank" data-answer="faster" id="b13" type="text" autocomplete="off" spellcheck="false"></span>?<br>
+      With music present, are students more likely to speak a larger total number of <span class="blank-wrapper"><span class="blank-num">(14)</span><input class="blank" data-answer="words" id="b14" type="text" autocomplete="off" spellcheck="false"></span>?
+    </div>
+  </div>
+
+  <!-- PARTICIPANTS -->
+  <div class="section">
+    <div class="section-title">Participants</div>
+    <div class="passage">
+      The participants were 122 first-year university students (73 female, 49 male) at a private university in South Korea. They were enrolled in <span class="blank-wrapper"><span class="blank-num">(15)</span><input class="blank" data-answer="compulsory" id="b15" type="text" autocomplete="off" spellcheck="false"></span> intermediate-level EFL courses and came from various academic <span class="blank-wrapper"><span class="blank-num">(16)</span><input class="blank" data-answer="majors" id="b16" type="text" autocomplete="off" spellcheck="false"></span>.
+    </div>
+  </div>
+
+  <!-- METHODS -->
+  <div class="section">
+    <div class="section-title">Methods</div>
+    <div class="passage">
+      <strong style="color:var(--text)">Study Design:</strong> The researcher employed a novel <span class="blank-wrapper"><span class="blank-num">(17)</span><input class="blank" data-answer="staggered" id="b17" type="text" autocomplete="off" spellcheck="false"></span> design over a 15-week semester. Six classes were divided into groups; the presence of music was <span class="blank-wrapper"><span class="blank-num">(18)</span><input class="blank" data-answer="rotated" id="b18" type="text" autocomplete="off" spellcheck="false"></span> weekly so that every student experienced both treatment (music) and control (no music) conditions.
+      <br><br>
+      <strong style="color:var(--text)">Treatment:</strong> Students listened to instrumental "<span class="blank-wrapper"><span class="blank-num">(19)</span><input class="blank" data-answer="Chillhop" id="b19" type="text" autocomplete="off" spellcheck="false"></span>" music at approximately 50 bpm, set at a volume of 60 decibels.
+      <br><br>
+      <strong style="color:var(--text)">Data Collection:</strong> Quantitative data included 230 recorded and <span class="blank-wrapper"><span class="blank-num">(20)</span><input class="blank" data-answer="transcribed" id="b20" type="text" autocomplete="off" spellcheck="false"></span> conversations. Qualitative data was gathered via an anonymous ten-question online survey conducted in Week 7.
+      <br><br>
+      <strong style="color:var(--text)">Analysis:</strong> Audio data was measured for the time taken to begin speaking and the total words spoken in the first <span class="blank-wrapper"><span class="blank-num">(21)</span><input class="blank" data-answer="minute" id="b21" type="text" autocomplete="off" spellcheck="false"></span> of conversation. Survey responses were analyzed through <span class="blank-wrapper"><span class="blank-num">(22)</span><input class="blank" data-answer="recursive" id="b22" type="text" autocomplete="off" spellcheck="false"></span> coding to identify major themes.
+    </div>
+  </div>
+
+  <!-- FINDINGS -->
+  <div class="section">
+    <div class="section-title">Findings</div>
+    <div class="passage">
+      <strong style="color:var(--text)">Student Perception:</strong> 98% of students enjoyed hearing music in the classroom. 62% perceived that music positively affected their speaking output. Qualitative coding revealed that music improved the classroom <span class="blank-wrapper"><span class="blank-num">(23)</span><input class="blank" data-answer="mood" id="b23" type="text" autocomplete="off" spellcheck="false"></span> and helped students feel less "shy" by providing a "<span class="blank-wrapper"><span class="blank-num">(24)</span><input class="blank" data-answer="cover" id="b24" type="text" autocomplete="off" spellcheck="false"></span>" so others could not overhear them.
+      <br><br>
+      <strong style="color:var(--text)">Initial Start Time:</strong> There was a statistically significant difference in how quickly students began speaking. Students took over twice as long to start speaking <span class="blank-wrapper"><span class="blank-num">(25)</span><input class="blank" data-answer="without" id="b25" type="text" autocomplete="off" spellcheck="false"></span> music (M=9.24 seconds) compared to when music was present (M=4.51 seconds).
+      <br><br>
+      <strong style="color:var(--text)">Total Oral Output:</strong> No significant difference was found in the total number of words spoken during the first minute of activity between the music <span class="blank-wrapper"><span class="blank-num">(26)</span><input class="blank" data-answer="treatment" id="b26" type="text" autocomplete="off" spellcheck="false"></span> (M=43.67 words) and the <span class="blank-wrapper"><span class="blank-num">(27)</span><input class="blank" data-answer="control" id="b27" type="text" autocomplete="off" spellcheck="false"></span> condition (M=41.79 words).
+    </div>
+  </div>
+
+  <!-- IMPLICATIONS -->
+  <div class="section">
+    <div class="section-title">Implications</div>
+    <div class="passage">
+      The results suggest that background music is not a <span class="blank-wrapper"><span class="blank-num">(28)</span><input class="blank" data-answer="detriment" id="b28" type="text" autocomplete="off" spellcheck="false"></span> to oral production and can actually be a beneficial tool for enhancing classroom atmosphere and increasing student confidence. The author suggests that EFL instructors should consider using appropriate background music to help students feel more comfortable and ready to speak.
+    </div>
+  </div>
+
+  <!-- LIMITATIONS -->
+  <div class="section">
+    <div class="section-title">Limitations</div>
+    <div class="passage">
+      Dual <span class="blank-wrapper"><span class="blank-num">(29)</span><input class="blank" data-answer="role" id="b29" type="text" autocomplete="off" spellcheck="false"></span>: The researcher acted as both the teacher and the researcher, which may have influenced student comfort and survey responses.
+      <br><br>
+      Design <span class="blank-wrapper"><span class="blank-num">(30)</span><input class="blank" data-answer="validity" id="b30" type="text" autocomplete="off" spellcheck="false"></span>: The novel staggered design made it impossible to <span class="blank-wrapper"><span class="blank-num">(31)</span><input class="blank" data-answer="isolate" id="b31" type="text" autocomplete="off" spellcheck="false"></span> the treatment's effects on individual classes.
+      <br><br>
+      Measurement <span class="blank-wrapper"><span class="blank-num">(32)</span><input class="blank" data-answer="scope" id="b32" type="text" autocomplete="off" spellcheck="false"></span>: Only the first minute of each conversation was measured for total output; longer segments might have yielded different results.
+      <br><br>
+      Survey Limitations: The survey focused primarily on self-efficacy related to music, potentially <span class="blank-wrapper"><span class="blank-num">(33)</span><input class="blank" data-answer="ignoring" id="b33" type="text" autocomplete="off" spellcheck="false"></span> other factors.
+      <br><br>
+      Data <span class="blank-wrapper"><span class="blank-num">(34)</span><input class="blank" data-answer="outliers" id="b34" type="text" autocomplete="off" spellcheck="false"></span>: The initial start time data contained heavy outliers in the control group, which skewed <span class="blank-wrapper"><span class="blank-num">(35)</span><input class="blank" data-answer="normality" id="b35" type="text" autocomplete="off" spellcheck="false"></span>, though the author argued these reflected the "awkwardness" of silence in a real classroom setting.
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="btn btn-primary" onclick="checkAll()">Check Answers</button>
+    <button class="btn btn-secondary" onclick="resetAll()">Reset</button>
+    <button class="btn btn-reveal" onclick="revealAll()">Reveal All</button>
+  </div>
+
+  <!-- Results -->
+  <div class="results-banner" id="results">
+    <div class="results-score" id="res-score">—</div>
+    <div class="results-label" id="res-label"></div>
+    <div class="results-bar-bg"><div class="results-bar-fill" id="res-bar" style="width:0%"></div></div>
+    <div class="results-detail" id="res-detail"></div>
+  </div>
+
+</div><!-- /main-wrapper -->
+
+<script>
+  const blanks = document.querySelectorAll('.blank');
+  const progressEl = document.getElementById('progress');
+
+  // Track filled count
+  blanks.forEach(inp => {
+    inp.addEventListener('input', () => {
+      const filled = [...blanks].filter(b => b.value.trim() !== '').length;
+      progressEl.textContent = filled;
+    });
+    inp.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        const arr = [...blanks];
+        const idx = arr.indexOf(inp);
+        if (idx < arr.length - 1) arr[idx + 1].focus();
+        else checkAll();
+      }
+    });
+  });
+
+  function normalize(str) {
+    return str.trim().toLowerCase().replace(/['']/g, "'");
+  }
+
+  function checkAll() {
+    let correct = 0;
+    let wrong = 0;
+    blanks.forEach(inp => {
+      const ans = normalize(inp.dataset.answer);
+      const val = normalize(inp.value);
+      inp.classList.remove('correct', 'wrong');
+      if (val === '') return;
+      if (val === ans) { inp.classList.add('correct'); correct++; }
+      else             { inp.classList.add('wrong');   wrong++; }
+    });
+
+    const total = 35;
+    const pct = Math.round((correct / total) * 100);
+
+    const banner = document.getElementById('results');
+    banner.classList.add('show');
+    document.getElementById('res-score').textContent = `${correct} / ${total}`;
+    document.getElementById('res-label').textContent = `${pct}% correct`;
+    document.getElementById('res-bar').style.width = pct + '%';
+
+    let msg = '';
+    if (pct === 100) msg = '<strong>Perfect score!</strong> Outstanding work.';
+    else if (pct >= 80) msg = `<strong>${correct} correct</strong> — Great effort! Review the <span class="miss">${wrong} incorrect</span> answers.`;
+    else if (pct >= 50) msg = `<strong>${correct} correct</strong> — Keep going! <span class="miss">${wrong}</span> still to get right.`;
+    else msg = `<strong>${correct} correct</strong> — Try again and check your notes. <span class="miss">${wrong}</span> need revision.`;
+
+    document.getElementById('res-detail').innerHTML = msg;
+    banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function resetAll() {
+    blanks.forEach(inp => {
+      inp.value = '';
+      inp.classList.remove('correct', 'wrong');
+    });
+    progressEl.textContent = '0';
+    document.getElementById('results').classList.remove('show');
+  }
+
+  function revealAll() {
+    blanks.forEach(inp => {
+      inp.value = inp.dataset.answer;
+      inp.classList.remove('wrong');
+      inp.classList.add('correct');
+    });
+    progressEl.textContent = '35';
+    checkAll();
+  }
+</script>
+</body>
+</html>
