@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gap-Fill Exercise: Summary of Articles 65, 66, 67, 71, 73, 74</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf8f4;
+    --surface: #ffffff;
+    --border: #e2ddd5;
+    --accent: #2c5f8a;
+    --accent-light: #e8f0f7;
+    --correct: #2d7a4e;
+    --correct-bg: #e8f5ee;
+    --wrong: #c0392b;
+    --wrong-bg: #fdecea;
+    --hint: #7a5c2e;
+    --hint-bg: #fdf3e3;
+    --text: #1a1a1a;
+    --muted: #6b6460;
+    --article-border: #c9b99a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 16px;
+  }
+
+  header {
+    background: var(--accent);
+    color: white;
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+
+  header h1 {
+    font-family: 'Lora', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    margin-bottom: 0.4rem;
+  }
+
+  header p {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    margin-bottom: 1rem;
+  }
+
+  .header-controls {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .score-badge {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 0.3rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  btn, .btn {
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    padding: 0.45rem 1.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.15s;
+  }
+
+  .btn-check {
+    background: #f0c040;
+    color: #1a1200;
+  }
+  .btn-check:hover { background: #e0b030; }
+
+  .btn-reset {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.4);
+  }
+  .btn-reset:hover { background: rgba(255,255,255,0.25); }
+
+  .btn-hints {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.4);
+  }
+  .btn-hints:hover { background: rgba(255,255,255,0.25); }
+
+  main {
+    max-width: 860px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  .article-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--article-border);
+    border-radius: 8px;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+  }
+
+  .article-header {
+    background: #f5f1eb;
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 1.5rem;
+  }
+
+  .article-number {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
+
+  .article-title {
+    font-family: 'Lora', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 0.15rem;
+  }
+
+  .article-body {
+    padding: 1.5rem;
+  }
+
+  .section-heading {
+    font-family: 'Lora', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 1.5rem 0 0.6rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-heading:first-child { margin-top: 0; }
+
+  p { margin-bottom: 1em; }
+  p:last-child { margin-bottom: 0; }
+
+  /* Gap input styles */
+  .gap-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    position: relative;
+  }
+
+  .gap-input {
+    display: inline-block;
+    border: none;
+    border-bottom: 2px solid var(--accent);
+    background: var(--accent-light);
+    border-radius: 3px 3px 0 0;
+    padding: 0.1rem 0.4rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95em;
+    color: var(--text);
+    min-width: 80px;
+    width: auto;
+    text-align: center;
+    outline: none;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .gap-input:focus {
+    background: #deeaf5;
+    border-bottom-color: #1a4a70;
+  }
+
+  .gap-input.correct {
+    background: var(--correct-bg);
+    border-bottom-color: var(--correct);
+    color: var(--correct);
+    font-weight: 600;
+  }
+
+  .gap-input.wrong {
+    background: var(--wrong-bg);
+    border-bottom-color: var(--wrong);
+    color: var(--wrong);
+  }
+
+  .hint-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--hint-bg);
+    color: var(--hint);
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1px solid #e0c89a;
+    transition: background 0.15s;
+    flex-shrink: 0;
+    user-select: none;
+  }
+  .hint-icon:hover { background: #f5e4c0; }
+
+  .hint-tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff8ed;
+    border: 1px solid #e0c89a;
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    color: var(--hint);
+    white-space: nowrap;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    z-index: 200;
+    max-width: 260px;
+    white-space: normal;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .hint-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #e0c89a;
+  }
+
+  .gap-wrapper:hover .hint-tooltip,
+  .gap-wrapper .hint-icon:focus + .hint-tooltip {
+    display: block;
+  }
+
+  .show-hints .hint-tooltip { display: block !important; }
+
+  /* Answer reveal */
+  .answer-reveal {
+    display: none;
+    font-size: 0.8rem;
+    color: var(--correct);
+    font-weight: 600;
+    margin-left: 0.3rem;
+  }
+  .show-answers .gap-input.wrong ~ .answer-reveal { display: inline; }
+
+  /* Results banner */
+  #results-banner {
+    display: none;
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: white;
+    padding: 0.9rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    z-index: 300;
+    text-align: center;
+  }
+
+  .progress-bar-wrap {
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    margin-top: 0.6rem;
+  }
+  .progress-bar {
+    height: 100%;
+    background: #f0c040;
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  blockquote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    color: var(--muted);
+    font-style: italic;
+    margin: 0.8em 0;
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.1rem; }
+    .article-body { padding: 1rem; }
+    .gap-input { min-width: 60px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Gap-Fill Exercise: Summary of Articles 65, 66, 67, 71, 73 &amp; 74</h1>
+  <p>Fill in each blank with the correct SLA / TESOL term. Hover the <strong>?</strong> icon for a hint.</p>
+  <div class="header-controls">
+    <span class="score-badge" id="live-score">0 / 0 filled</span>
+    <button class="btn btn-check" onclick="checkAnswers()">✓ Check Answers</button>
+    <button class="btn btn-reset" onclick="resetAll()">↺ Reset</button>
+    <button class="btn btn-hints" onclick="toggleHints()">💡 Toggle Hints</button>
+  </div>
+</header>
+
+<main id="exercise">
+
+<!-- ===== ARTICLE 65 ===== -->
+<div class="article-block">
+  <div class="article-header">
+    <span class="article-number">65</span>
+    <div class="article-title">Addressing English-speaking anxiety in Vietnamese initial teacher education: beyond coping strategies (Thuc Anh Nguyen)</div>
+  </div>
+  <div class="article-body">
+
+    <div class="section-heading">Introduction</div>
+    <p>English holds growing global importance, and Vietnam's National Foreign Languages Project (NFLP) aims to improve English graduates' competencies, particularly through initial teacher education. However, a significant gap exists between the NFLP's goals and actual outcomes, with the 2025 target of 100% of graduating teachers meeting language competency standards appearing unachievable. A core challenge is the 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="oral" size="4" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Adjective describing proficiency in speaking; contrasted with written</span>
+        <span class="answer-reveal">oral</span>
+      </span>
+     proficiency of pre-service English teachers (PSETs), many of whom lack confidence in speaking and teaching speaking skills. Foreign language speaking anxiety (FLSA) — defined as 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="apprehension" size="11" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">A key word in FLCA theory (Horwitz et al., 1986); means unease or dread related to communication</span>
+        <span class="answer-reveal">apprehension</span>
+      </span>
+     associated with oral communication — is identified as the strongest factor hindering language speaking development. While FLSA has been researched globally, it manifests differently across cultural contexts, and studies on Vietnamese PSETs majoring in English remain notably absent.</p>
+
+    <div class="section-heading">Literature Review</div>
+    <p>The review covers four main areas. First, it defines and theorises foreign language anxiety (FLA), drawing on Horwitz et al.'s (1986) foundational FLCA framework, which identifies three sources of anxiety: 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="communication" size="13" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">First of Horwitz et al.'s three anxiety sources; refers to fear linked to speaking or interacting</span>
+        <span class="answer-reveal">communication</span>
+      </span>
+     apprehension, test anxiety, and fear of negative evaluation. Second, it outlines the characteristics of FLSA as a situation-specific, highly evaluative, and cognitively demanding form of anxiety distinct from other language skills. Third, it examines factors contributing to FLSA, organised into three categories: linguistic factors (limited vocabulary, mispronunciation, reliance on 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="L1" size="2" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">SLA abbreviation for a learner's mother tongue or first language</span>
+        <span class="answer-reveal">L1</span>
+      </span>
+     translation), sociocultural factors (classroom culture, peer ridicule, error correction styles), and personal factors (low self-confidence, unrealistic beliefs about linguistic perfection, oral test anxiety). Fourth, it reviews existing intervention methods and coping strategies drawn from contexts in the Philippines, Taiwan, Turkey, and Vietnam, noting that strategies like preparation, relaxation, peer support, and positive thinking have been studied, though specific coping mechanisms among PSETs remain underexplored.</p>
+
+    <div class="section-heading">Research Gap</div>
+    <p>The article explicitly identifies two gaps. First, while English-speaking anxiety has been studied among Vietnamese students who are not majoring in English, there is a notable absence of research on FLSA among Vietnamese PSETs who are majoring in English — a unique group because they must master speaking both for personal proficiency and future teaching. Second, coping strategies specifically employed by those preparing to teach English, as opposed to general 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="EFL" size="3" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Abbreviation for English as a Foreign Language (learning English in a non-English-speaking country)</span>
+        <span class="answer-reveal">EFL</span>
+      </span>
+     learners, remain underexplored globally.</p>
+
+    <div class="section-heading">Aim of the Study</div>
+    <p>The study aimed to examine the experiences of Vietnamese PSETs with English-speaking anxiety, focusing on the linguistic, personal, and sociocultural factors shaping their FLSA from school years through initial teacher education, and to identify the 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="coping" size="6" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ strategies = techniques learners use to manage or reduce anxiety</span>
+        <span class="answer-reveal">coping</span>
+      </span>
+     strategies they employed to manage this anxiety.</p>
+
+    <div class="section-heading">Research Questions</div>
+    <p>As stated verbatim in the article:</p>
+    <blockquote>RQ1: "How do Vietnamese pre-service English teachers experience English-speaking anxiety?"</blockquote>
+    <blockquote>RQ2: "What strategies do Vietnamese pre-service English teachers employ to mitigate their English-speaking anxiety?"</blockquote>
+
+    <div class="section-heading">Participants</div>
+    <p>Five first-year pre-service English teachers (PSETs) enrolled in a Bachelor of Teaching English programme at a Hanoi-based university participated. They were recruited through 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="purposive" size="9" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ sampling = selecting participants deliberately based on specific criteria (not random)</span>
+        <span class="answer-reveal">purposive</span>
+      </span>
+     sampling via a faculty-affiliated Facebook group, and were required to have completed foundational speaking/listening and writing/reading courses in semester 1 and expressed interest in sharing experiences related to English-speaking anxiety. Their English proficiency levels ranged from B1 to C1 (CEFR), and all had approximately 11–12 years of English learning experience. Pseudonyms (Hien, Hai, Huyen, Duong, Linh) were used to protect confidentiality.</p>
+
+    <div class="section-heading">Methodology</div>
+    <p>Instruments: Semi-structured interviews were used as the primary instrument. The interview protocol covered two areas: participants' backgrounds (language learning history, prior speaking experiences) and their personal experiences of English-speaking anxiety (anxiety triggers, emotional responses, strategies used, and perceptions of strategy effectiveness).</p>
+    <p>Method of Data Collection: Individual 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="semi-structured" size="14" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Type of interview with predetermined questions but flexible follow-up; between structured and unstructured</span>
+        <span class="answer-reveal">semi-structured</span>
+      </span>
+     interviews were conducted face-to-face via Zoom, each lasting approximately 45 minutes and conducted in English. With participants' consent, interviews were audio-recorded. Detailed notes were also taken to capture verbal and non-verbal cues. Transcripts were produced verbatim using Zoom's transcription feature, cross-checked for accuracy, and returned to participants for review and approval within two weeks.</p>
+    <p>Method of Data Analysis: 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="Thematic" size="8" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ analysis = a qualitative method (Braun &amp; Clarke) for identifying patterns/themes in data</span>
+        <span class="answer-reveal">Thematic</span>
+      </span>
+     analysis following Braun and Clarke's (2022) six-stage framework was employed. The process began with familiarisation, proceeded through open coding, refinement of themes, identification of sub-themes, and contextualisation within the theoretical frameworks of Horwitz et al. (1986), Young (1991), and Kondo and Ying-Ling (2004). Trustworthiness was established through credibility, transferability, dependability, and confirmability as outlined by Lincoln and Guba (1985).</p>
+
+    <div class="section-heading">Findings</div>
+    <p>Two sets of findings emerged corresponding to the two research questions. For RQ1, three themes of factors contributing to FLSA were identified: linguistic factors (lack of vocabulary knowledge, mispronunciation, and reliance on L1 translation), individual learner factors (lack of self-confidence and unrealistic learners' beliefs about the need for error-free speech), and classroom-related factors (fear of informal 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="negative" size="8" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Fear of ___ evaluation = one of Horwitz et al.'s three anxiety components; worrying about others' judgement</span>
+        <span class="answer-reveal">negative</span>
+      </span>
+     evaluation by peers and anxiety over formal speaking tests, further compounded by parental expectations). Notably, all five participants experienced anxiety regardless of proficiency level. For RQ2, three coping strategies were identified: seeking peer support (consulting peers before speaking publicly to gain confidence, though effectiveness varied by familiarity), thorough preparation (practising responses in advance, though over-preparation could restrict spontaneous thinking), and positive thinking (reframing mistakes as learning opportunities to reduce negative self-perceptions).</p>
+
+    <div class="section-heading">Discussion</div>
+    <p>The discussion is integrated with the findings section. The study confirms that FLSA is a universal experience across proficiency levels among Vietnamese PSETs, consistent with Horwitz et al. (1986) and Young (1991). Findings parallel those from PSETs in Indonesia and Gaza, affirming the cross-cultural prevalence of fear of negative evaluation and communication apprehension. However, the study also reveals a culturally specific dimension unique to Vietnam: societal norms around "face," a competitive job market, and unrealistic benchmarks of linguistic perfection amplify FLSA beyond what standard theoretical frameworks capture, suggesting these frameworks need adaptation for context-specific pressures. Regarding coping strategies, peer collaboration and positive thinking align with Kondo and Ying-Ling's (2004) framework, while the tension between preparation and adaptability in spontaneous conversation was identified as a gap requiring further investigation. Practical implications span policy (incorporating speaking in university entrance exams), 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="pedagogy" size="8" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">The theory and practice of teaching; a core term in TESOL/education research</span>
+        <span class="answer-reveal">pedagogy</span>
+      </span>
+     (equipping PSETs with anxiety management strategies in teacher education programmes), and classroom practice (building confidence through positive feedback and reframing mistakes as growth opportunities).</p>
+
+    <div class="section-heading">Limitations</div>
+    <p>The article explicitly states the following limitations. First, the very small 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="sample" size="6" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">The group of participants selected from a larger population for a study</span>
+        <span class="answer-reveal">sample</span>
+      </span>
+     of only five participants significantly constrains the broader applicability of the findings. Second, as all participants were from a single university in Vietnam, the findings cannot be reliably extrapolated to different cultural or educational contexts. The study itself acknowledges these constraints while noting its contributions to both academic literature and educational practice.</p>
+
+  </div>
+</div>
+
+<!-- ===== ARTICLE 66 ===== -->
+<div class="article-block">
+  <div class="article-header">
+    <span class="article-number">66</span>
+    <div class="article-title">Effects of Self-Efficacy, Task Value, Test Anxiety, and Learning Strategies on Test Scores: A Washback Study (Tran, My Dung)</div>
+  </div>
+  <div class="article-body">
+
+    <div class="section-heading">Introduction</div>
+    <p>Vietnam is an exam-oriented society where English holds critical importance — required for school graduation, university entrance, employment, and promotion. Despite students undergoing hundreds of hours of English instruction, their English competence remains low due to inconsistent curricula, unqualified teachers, outdated textbooks, and grammar-translation-dominated pedagogy. Within this context, English tests carry high stakes and significantly shape students' lives. Because tests are so consequential, studying their 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="washback" size="8" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Also called backwash; the influence a test has on learning and teaching behaviours</span>
+        <span class="answer-reveal">washback</span>
+      </span>
+     effects — how they influence learning and teaching — is particularly important in Vietnam. Yet washback research in Vietnam remains sparse and has focused almost exclusively on university-level tests using qualitative methods.</p>
+
+    <div class="section-heading">Literature Review</div>
+    <p>The review covers three main areas. First, it surveys washback extensively: its definitions (effects of tests on learning and teaching), related concepts (measurement-driven instruction, systemic validity, test-curriculum alignment), types (positive and negative), its complex and multi-faceted nature, major theoretical frameworks (Alderson &amp; Wall, 1993; Hughes, 1993; Bailey, 1996; Green, 2007; Saif, 2006; Shih, 2009), and prior empirical studies globally and in Vietnam. Second, it reviews motivation, defining it and discussing its three components as operationalized in this study: self-efficacy (belief in one's ability to succeed), task value (perceived importance and usefulness of the task), and test anxiety (negative emotional response to testing). Third, it covers language learning strategies — their definitions, characteristics, and typologies (particularly 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="metacognitive" size="12" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ strategies = planning, monitoring, and evaluating one's own learning; "thinking about thinking"</span>
+        <span class="answer-reveal">metacognitive</span>
+      </span>
+    , cognitive, and memory strategies) drawing on Oxford (1990) and O'Malley and Chamot (1990).</p>
+
+    <div class="section-heading">Research Gap</div>
+    <p>The study identifies several explicit gaps. Washback has been studied in contexts like China and Hong Kong but only minimally in Vietnam, and existing Vietnamese studies examined university-level tests using qualitative or mixed methods. No study had investigated washback of a middle school English test in Vietnam using 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="quantitative" size="12" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Research approach using numerical data and statistical analysis; contrasted with qualitative</span>
+        <span class="answer-reveal">quantitative</span>
+      </span>
+     methods. Additionally, Vietnamese students have been under-researched in language assessment compared to students from China, Korea, and Hong Kong.</p>
+
+    <div class="section-heading">Aim of the Study</div>
+    <p>The study aimed to investigate the washback of an English mid-term exam for middle school students in Vietnam using quantitative methods, specifically by examining whether self-efficacy, task value, and test anxiety constitute motivation, and whether learning strategies 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="mediate" size="7" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">To ___ = to act as an intermediary variable that explains the link between two other variables</span>
+        <span class="answer-reveal">mediate</span>
+      </span>
+     the relationship between motivation and test scores.</p>
+
+    <div class="section-heading">Research Questions</div>
+    <p>As stated verbatim in the dissertation:</p>
+    <blockquote>"Are self-efficacy, task value, and test anxiety variables of motivation?"</blockquote>
+    <blockquote>"Do learning strategies mediate the relationship between motivation and test scores?"</blockquote>
+
+    <div class="section-heading">Participants</div>
+    <p>365 middle school students in Vietnam participated in the study. No further demographic breakdown (gender, grade level, age) is provided in the available pages.</p>
+
+    <div class="section-heading">Methodology</div>
+    <p>Instruments: A survey adapted from two established instruments — the Motivated Strategies for Learning Questionnaire (MSLQ) by Pintrich et al. (1991), which measured self-efficacy, task value, and test anxiety, and the 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="SILL" size="4" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Oxford's (1990) Strategy Inventory for Language Learning; an acronym used widely in SLA research</span>
+        <span class="answer-reveal">SILL</span>
+      </span>
+     by Oxford (1990), which measured metacognitive, cognitive, and memory strategies. Students' test scores from the English mid-term exam were also collected. Cronbach's Alpha was computed for six constructs to verify 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="reliability" size="11" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">The consistency of a measuring instrument; Cronbach's Alpha is a common index of internal ___</span>
+        <span class="answer-reveal">reliability</span>
+      </span>
+    .</p>
+    <p>Method of Data Collection: Survey responses and test scores were obtained from the 365 middle school students. The author's mother assisted with data collection in Vietnam since the author was unable to travel there at the time.</p>
+    <p>Method of Data Analysis: Structural equation modelling (SEM) was used to analyze the relationships among motivation (self-efficacy, task value, test anxiety), learning strategies (metacognitive, cognitive, memory), and test scores. Two competing models were tested — a fully mediated model and a partially mediated model — using 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="confirmatory" size="12" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ factor analysis (CFA) = tests whether data fits a pre-specified factor structure; contrasted with exploratory</span>
+        <span class="answer-reveal">confirmatory</span>
+      </span>
+     factor analysis (CFA) and fit indices including CFI, RMSEA, and SRMR.</p>
+
+    <div class="section-heading">Findings</div>
+    <p>Three main findings emerged. First, except for test anxiety (p &lt; 0.43), self-efficacy and task value were confirmed as variables of motivation. Test anxiety did not function as a variable of motivation in this model. Second, learning strategies strongly mediated the relationship between motivation and test scores (X²(8, N = 365) = 10.93, p &lt; 0.21, CFI = 1.0, RMSEA = 0.03 (0.00–0.07), SRMR = 0.02), indicating a good model fit. Third, the final model supported a fully 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="mediated" size="8" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">A ___ relationship = when a third variable fully explains the link between two other variables (no direct effect remains)</span>
+        <span class="answer-reveal">mediated</span>
+      </span>
+     relationship, meaning learning strategies fully explained the link between motivation and test outcomes.</p>
+
+    <div class="section-heading">Discussion</div>
+    <p>The discussion addressed five areas. First, motivation as operationalized through self-efficacy and task value was confirmed, while test anxiety did not fit as a motivational variable. Second, learning strategies — particularly metacognitive, cognitive, and memory strategies — were discussed as central mediators. Third, the mediated relationship between motivation, strategies, and test scores was interpreted as evidence that motivated students deploy learning strategies, which in turn drive test performance. Fourth, the findings prompted a theoretical revisitation of washback direction: rather than washback working strictly backwards (test → behavior), the study's model suggests washback can be two-directional, contrasting with Pearson's (1998) 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="unidirectional" size="13" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Flowing in only one direction; the opposite of bidirectional</span>
+        <span class="answer-reveal">unidirectional</span>
+      </span>
+     view. Fifth, practical suggestions were offered for how teachers can explicitly instruct students in language learning strategies to improve outcomes.</p>
+
+    <div class="section-heading">Limitations</div>
+    <p>The dissertation explicitly states the following limitations in Chapter Six. First, the study was conducted at only one middle school in Vietnam, which restricts the 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="generalizability" size="15" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">The degree to which findings can be applied to other contexts, populations, or settings</span>
+        <span class="answer-reveal">generalizability</span>
+      </span>
+     of findings to other schools or educational levels. Second, the study used a survey and test scores, but did not include classroom observations or interviews, which limits the depth of understanding of washback processes. Third, the adapted survey instruments may not have perfectly captured the constructs as intended in the Vietnamese middle school context.</p>
+
+  </div>
+</div>
+
+<!-- ===== ARTICLE 67 ===== -->
+<div class="article-block">
+  <div class="article-header">
+    <span class="article-number">67</span>
+    <div class="article-title">Learning Self-Efficacy, Regulation, and Resilience among English-Majored Students in the Vietnamese Context (MH Do)</div>
+  </div>
+  <div class="article-body">
+
+    <div class="section-heading">Introduction</div>
+    <p>Self-efficacy is a well-established area of educational research, recognized for its influence on learners' thoughts, emotions, and behaviors. It is viewed as a driving force for 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="self-regulation" size="14" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Learners' ability to plan, monitor, and control their own learning process; key concept in SLA</span>
+        <span class="answer-reveal">self-regulation</span>
+      </span>
+     and resilience, and a strong predictor of academic engagement and achievement. Students with high self-efficacy are more likely to persist through challenges and set higher academic goals. Despite extensive global research, empirical studies examining the links between learning self-efficacy, regulation, and resilience in Vietnam's higher education context — particularly among EFL majors — remain limited.</p>
+
+    <div class="section-heading">Literature Review</div>
+    <p>The review covers three main areas. First, it defines self-efficacy (Bandura, 1986) as a person's belief in their capacity to perform a task, explaining how it shapes motivation, cognition, and behavior. Second, it outlines four sources of self-efficacy development: 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="mastery" size="7" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ experience = the most powerful source of self-efficacy; succeeding at a task builds belief in ability</span>
+        <span class="answer-reveal">mastery</span>
+      </span>
+     experience, social modeling (vicarious learning), verbal persuasion, and physiological/emotional states. Third, it surveys prior EFL studies from China, Turkey, Taiwan, Thailand, and Peru, consistently finding positive links between self-efficacy and English language performance, while also warning that low self-efficacy can lead to academic 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="burnout" size="7" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Emotional/physical exhaustion from prolonged academic stress; associated with low self-efficacy</span>
+        <span class="answer-reveal">burnout</span>
+      </span>
+    .</p>
+
+    <div class="section-heading">Research Gap</div>
+    <p>The article implies a research gap but does not label it explicitly as such. It notes that correlations between learning self-efficacy, regulation, and resilience have not been sufficiently investigated among English-majored students in the Vietnamese context. Additionally, the impact of academic year (freshman through senior) on self-efficacy has not been adequately explored in prior relevant studies.</p>
+
+    <div class="section-heading">Aim of the Study</div>
+    <p>The study aimed to examine the levels of learning self-efficacy, regulation, and resilience among EFL college students in Vietnam, explore 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="correlations" size="12" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Statistical relationships between two variables; measured with Pearson's r in this study</span>
+        <span class="answer-reveal">correlations</span>
+      </span>
+     among these three factors, and determine whether academic year experience influences self-efficacy.</p>
+
+    <div class="section-heading">Research Questions</div>
+    <p>As stated verbatim in the article:</p>
+    <blockquote>"At what level of learning self-efficacy do English majors self-perceive?"</blockquote>
+    <blockquote>"How do these students display their learning regulation and resilience?"</blockquote>
+    <blockquote>"Does the learning self-efficacy of students have correlations with their learning regulation and resilience?"</blockquote>
+    <blockquote>"Is learning self-efficacy impacted by their academic years at college?"</blockquote>
+
+    <div class="section-heading">Participants</div>
+    <p>400 undergraduate EFL students (122 males, 278 females) from a university in Vietnam participated in early 2025. They comprised four year groups: freshmen (122, 30.5%), sophomores (93, 23.25%), juniors (107, 26.75%), and seniors (78, 19.5%), aged between 19 and 22 years old, originating from several provinces across Vietnam.</p>
+
+    <div class="section-heading">Methodology</div>
+    <p>Instruments: A structured questionnaire with 17 items across three subscales — Learning Self-Efficacy (LSE, 5 items), Learning Regulation (LR, 6 items), and Resilience (RE, 6 items) — rated on a 5-point 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="Likert" size="6" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ scale = a common rating scale in survey research (e.g. 1 = strongly disagree to 5 = strongly agree)</span>
+        <span class="answer-reveal">Likert</span>
+      </span>
+     scale (1 = Really Unsure to 5 = Really Sure). The questionnaire was validated by three EFL experts and piloted with 100 students before finalisation.</p>
+    <p>Method of Data Collection: The researcher visited EFL classes in person, explained the study's purpose, emphasized voluntary and anonymous participation, and distributed questionnaires completed within approximately 15 minutes. All questionnaires were collected on the spot.</p>
+    <p>Method of Data Analysis: SPSS 26 was used. Reliability was assessed via Cronbach's Alpha; validity through 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="Confirmatory" size="12" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ Factor Analysis = a statistical technique to verify a predetermined factor structure; uses KMO and Bartlett's test</span>
+        <span class="answer-reveal">Confirmatory</span>
+      </span>
+     Factor Analysis (Kaiser-Meyer-Olkin and Bartlett's test). Descriptive statistics were used for mean scores, Pearson correlation tests for relationships among the three factors, and Independent-Samples T-tests for comparisons across year groups.</p>
+
+    <div class="section-heading">Findings</div>
+    <p>Three main findings emerged. First, students' resilience scored highest (M = 4.38), reaching a high level, while self-efficacy (M = 3.78) and regulation (M = 3.59) were both at the upper-average level. Second, all three factors were significantly and positively correlated: LSE–LR (r = .443), LSE–RE (r = .488), and LR–RE (r = .582), all at p &lt; .01. Third, no statistically significant differences in self-efficacy were found across the four year groups, with 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="means" size="5" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Plural of mean (M); averages of scores used in descriptive statistics</span>
+        <span class="answer-reveal">means</span>
+      </span>
+     ranging narrowly from 3.76 (freshmen) to 3.82 (seniors).</p>
+
+    <div class="section-heading">Discussion</div>
+    <p>The upper-average self-efficacy level aligns with prior studies in multiple countries, suggesting room for improvement globally. The high resilience level may reflect college EFL students' greater accumulated mastery experience compared to high school learners. The positive correlations among all three factors reinforce their joint role in the learning process and highlight the need for teachers to actively foster all three rather than treating them in isolation. The finding that academic year did not significantly affect self-efficacy is consistent with Lin et al. (2025), and may be explained by the increasingly demanding coursework at higher year levels offsetting any gains in experience. The authors recommend ongoing, year-level-independent strategies to develop self-efficacy, regulation, and resilience, particularly for 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="struggling" size="9" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Describes learners who are having difficulty; often paired with "students" in educational research</span>
+        <span class="answer-reveal">struggling</span>
+      </span>
+     students.</p>
+
+    <div class="section-heading">Limitations</div>
+    <p>There is no information. The article does not explicitly state any limitations.</p>
+
+  </div>
+</div>
+
+<!-- ===== ARTICLE 71 ===== -->
+<div class="article-block">
+  <div class="article-header">
+    <span class="article-number">71</span>
+    <div class="article-title">"The Effect of Motivation and Anxiety on English Learning on a Vietnamese EFL Learner: A Case Study (Hoang Mnh Phuong)"</div>
+  </div>
+  <div class="article-body">
+
+    <div class="section-heading">Introduction</div>
+    <p>The study investigates two psychological factors — motivation and anxiety — in foreign language learning, focusing on one Vietnamese EFL learner named Annie, an 18-year-old intermediate-level learner who moved to Australia five months prior. The researcher aims to analyse these characteristics in depth and propose implications for teachers and learners.</p>
+
+    <div class="section-heading">Literature Review</div>
+    <p>The review covers two main constructs. For motivation, it draws on Gardner and Lambert's (1972) framework of 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="instrumental" size="12" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ motivation = learning a language for practical purposes (e.g. career, exam); contrasted with integrative</span>
+        <span class="answer-reveal">instrumental</span>
+      </span>
+     vs. integrative motivation, and Deci and Ryan's self-determination theory (via Noels, 2001), which places amotivation, extrinsic motivation, and intrinsic motivation on a continuum. It also highlights the role of learning context and significant others. For anxiety, it references Horwitz et al.'s (1986) three components: communication apprehension, test anxiety, and fear of negative evaluation.</p>
+
+    <div class="section-heading">Research Gap</div>
+    <p>There is no information explicitly stated.</p>
+
+    <div class="section-heading">Aim of Study</div>
+    <p>The researcher aims to investigate Annie's motivation and anxiety as a second language learner, conduct an in-depth analysis of these features, and propose implications for teachers and learners to strengthen motivation and cope with anxiety in 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="L2" size="2" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Abbreviation for second language (any language learned after the first); used widely in SLA</span>
+        <span class="answer-reveal">L2</span>
+      </span>
+     learning.</p>
+
+    <div class="section-heading">Research Questions</div>
+    <p>There is no information — the article does not explicitly state formal research questions.</p>
+
+    <div class="section-heading">Participants</div>
+    <p>One participant: Annie, an 18-year-old Vietnamese female learner at an intermediate level of English proficiency. She began learning English as a compulsory school subject at age 11, took it seriously from age 13, and relocated to Australia five months before the study was conducted.</p>
+
+    <div class="section-heading">Methodology</div>
+    <p>Instruments: A motivation questionnaire, a semi-structured interview (for motivation), the Foreign Language Classroom Anxiety Scale (
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="FLCAS" size="5" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Acronym for the Foreign Language Classroom Anxiety Scale; a widely-used instrument by Horwitz (1986)</span>
+        <span class="answer-reveal">FLCAS</span>
+      </span>
+    ) by Horwitz (1986), and the Test Anxiety Scale by Sarason (1980), followed by a semi-structured interview on anxiety.</p>
+    <p>Method of data collection: Questionnaires and 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="semi-structured" size="14" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Type of interview that uses a guide but allows flexible follow-up questions</span>
+        <span class="answer-reveal">semi-structured</span>
+      </span>
+     interviews were administered to gather data on the participant's feelings, thoughts, and experiences related to motivation and anxiety.</p>
+    <p>Method of data analysis: Qualitative analysis of the participant's speech and responses. The study is explicitly described as 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="qualitative" size="11" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Research approach focusing on non-numerical data; explores meaning, experience, and context</span>
+        <span class="answer-reveal">qualitative</span>
+      </span>
+    , with non-numerical data that cannot be represented in diagrams. No pilot study was conducted given the single-participant design.</p>
+
+    <div class="section-heading">Findings</div>
+    <p>Annie demonstrates both integrative and instrumental motivation, with 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="integrative" size="10" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ motivation = desire to learn a language to integrate into and identify with the target language community</span>
+        <span class="answer-reveal">integrative</span>
+      </span>
+     motivation being more dominant — she desires to live in English-speaking countries and engage with English-speaking communities. Extrinsic motivation is more evident than intrinsic motivation; she initially experienced amotivation but became extrinsically motivated after recognising English's practical value. Her motivation was negatively affected by Vietnam's grammar-translation classroom approach but improved significantly in Australia's creativity-oriented environment. Regarding anxiety, she shows moderate levels overall. Communication apprehension arises when she cannot understand teachers and fears embarrassment. Test anxiety is in the medium range, particularly during presentations and surprise tests. Fear of negative evaluation leads to withdrawal from classroom participation. However, 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="facilitating" size="11" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ anxiety = a beneficial level of anxiety that motivates performance; contrasted with debilitating anxiety</span>
+        <span class="answer-reveal">facilitating</span>
+      </span>
+     (beneficial) anxiety was also found, as negative feedback sometimes motivates her to study harder.</p>
+
+    <div class="section-heading">Discussion</div>
+    <p>There is no dedicated discussion section. Findings are interpreted throughout the analysis sections with reference to existing theoretical frameworks, such as Gardner (1985) on integrative motivation superseding instrumental motivation, and Dörnyei (2005) on 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="debilitating" size="12" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ anxiety = anxiety that impairs performance and learning; contrasted with facilitating anxiety</span>
+        <span class="answer-reveal">debilitating</span>
+      </span>
+     vs. facilitating anxiety.</p>
+
+    <div class="section-heading">Limitations</div>
+    <p>The article acknowledges one implicit limitation: since the study involves only one participant, Annie's motivation and anxiety cannot be 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="generalised" size="11" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">To apply findings broadly to other people or contexts; a key concern in case study research</span>
+        <span class="answer-reveal">generalised</span>
+      </span>
+     to represent all Vietnamese EFL learners.</p>
+
+  </div>
+</div>
+
+<!-- ===== ARTICLE 73 ===== -->
+<div class="article-block">
+  <div class="article-header">
+    <span class="article-number">73</span>
+    <div class="article-title">College Students' Perceived Self-Efficacy and Use of Information and Communication Technologies in EFL Learning (H Ngo, A Eichelberger)</div>
+  </div>
+  <div class="article-body">
+
+    <div class="section-heading">Introduction</div>
+    <p>Perceived self-efficacy — one's belief in their ability to accomplish a task — is a key 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="predictor" size="9" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">A variable that forecasts or explains outcomes in another variable; common in quantitative research</span>
+        <span class="answer-reveal">predictor</span>
+      </span>
+     of language learning success. Low self-efficacy is linked to academic failure, while ICT use has been shown to improve it. The study positions ICT integration as a potential solution to the persistently limited English proficiency among Vietnamese non-English major college students, framing self-efficacy through the 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="CEFR" size="4" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Common European Framework of Reference; an international standard for describing language proficiency (A1–C2)</span>
+        <span class="answer-reveal">CEFR</span>
+      </span>
+    's three proficiency levels: basic, independent, and proficient.</p>
+
+    <div class="section-heading">Literature Review</div>
+    <p>Self-efficacy is built through four sources: performance accomplishments, 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="vicarious" size="8" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ experiences = learning by observing others succeed; also called social modelling (Bandura)</span>
+        <span class="answer-reveal">vicarious</span>
+      </span>
+     experiences, verbal/social persuasion, and physiological states. It predicts foreign language performance, particularly in receptive skills (listening and reading), and influences learning strategy use. ICT tools — including social networking sites, email, blogs, and virtual worlds — have been found to enhance learner self-efficacy and 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="engagement" size="10" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Active involvement and participation in learning tasks; a key outcome variable in SLA research</span>
+        <span class="answer-reveal">engagement</span>
+      </span>
+     beyond the traditional classroom.</p>
+
+    <div class="section-heading">Research Gap</div>
+    <p>While self-efficacy's role in EFL learning is well-established, there is limited understanding of how Vietnamese non-English major college students' comfort with ICTs relates to their perceived self-efficacy, and what this relationship reveals about their persistently low English proficiency.</p>
+
+    <div class="section-heading">Aim of the Study</div>
+    <p>The study aims to examine Vietnamese non-English major college students' perceived self-efficacy in EFL learning and whether it differs by their comfort levels in using ICTs, in order to better understand the issue of limited EFL proficiency in this population.</p>
+
+    <div class="section-heading">Research Questions</div>
+    <blockquote>"To what degree are Vietnamese, non-English major college students self-efficacious in EFL learning?"</blockquote>
+    <blockquote>"How do Vietnamese, non-English major college students' self-efficacy differ by their comfort levels in using information and communication technologies in EFL learning?"</blockquote>
+
+    <div class="section-heading">Participants</div>
+    <p>975 Vietnamese college students majoring in disciplines other than English (out of 1,012 surveyed; 37 were excluded for not meeting the 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="sampling" size="8" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ criteria = the inclusion/exclusion requirements participants must meet to be part of a study</span>
+        <span class="answer-reveal">sampling</span>
+      </span>
+     criteria). The sample was nearly gender-balanced: 48.9% male and 50.9% female. The majority had access to computers (79.2%) and the Internet (82.8%) at home.</p>
+
+    <div class="section-heading">Methodology</div>
+    <p>Instruments: A 28-item survey comprising four demographic questions, three questions on Internet/computer access and ICT comfort levels, and 21 items adopted from Mills' (2009) instrument measuring self-efficacy in foreign language Communication. Items were grouped by CEFR proficiency levels (basic, independent, proficient) on a five-point 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="Likert" size="6" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ scale = a rating scale used in surveys, typically ranging from 1 (strongly disagree) to 5 (strongly agree)</span>
+        <span class="answer-reveal">Likert</span>
+      </span>
+     scale. Internal consistency was above .80. The survey directions were translated into Vietnamese using the 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="back-translation" size="14" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ method = translating a text into another language, then translating back to check accuracy</span>
+        <span class="answer-reveal">back-translation</span>
+      </span>
+     method.</p>
+    <p>Data Collection: The survey was distributed to and completed by college students across Vietnam who were non-English majors, aged 18 or above, and currently residing in Vietnam.</p>
+    <p>Data Analysis: Data were analyzed using SPSS (version 26.0). Descriptive statistics summarized demographics, self-efficacy levels, and ICT comfort levels. A one-way 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="ANOVA" size="5" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Analysis of Variance; a statistical test comparing means across three or more groups</span>
+        <span class="answer-reveal">ANOVA</span>
+      </span>
+     was used to determine whether perceived self-efficacy differed significantly by ICT comfort level, followed by Tukey's HSD post-hoc pairwise comparisons to identify which comfort level groups differed significantly from one another.</p>
+
+    <div class="section-heading">Findings</div>
+    <p>Overall self-efficacy was slightly above the midpoint (M = 3.17/5), with only 39.5% of students confirming they were self-efficacious in EFL learning. Self-efficacy decreased as proficiency level increased: 50.5% of students rated themselves as basic users, 37.1% as independent users, and 31% as proficient users. Regarding ICT comfort, 40.6% reported high to very high comfort, 49.5% average, and 9.5% low to very low. ANOVA results showed significant differences across all three proficiency levels, and 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="post-hoc" size="8" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ analysis = follow-up statistical tests done after ANOVA to pinpoint which specific groups differ</span>
+        <span class="answer-reveal">post-hoc</span>
+      </span>
+     analysis confirmed that students with high to very high ICT comfort levels were significantly more self-efficacious than those with average or low to very low comfort levels.</p>
+
+    <div class="section-heading">Discussion</div>
+    <p>The low self-efficacy found among students is consistent with prior research linking low self-efficacy to avoidance of learning tasks, attributing failure to fixed ability, and limited engagement. The study confirms that ICT comfort level is positively associated with perceived EFL self-efficacy, aligning with evidence that technology tools such as email, blogs, and virtual platforms can enhance learner self-efficacy. The authors suggest that providing students with structured opportunities to use technology within language learning contexts could simultaneously improve ICT comfort and EFL self-efficacy.</p>
+
+    <div class="section-heading">Limitations</div>
+    <p>The study focused exclusively on Vietnamese non-English major college students, limiting the generalizability of findings to other populations who may differ in motivation and anxiety toward EFL learning. The study also does not explain why students lack confidence in their English learning ability, and further research is needed to confirm the 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="causal" size="6" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ relationship = when one variable directly causes a change in another; correlation alone cannot confirm this</span>
+        <span class="answer-reveal">causal</span>
+      </span>
+     relationship between ICT comfort and perceived self-efficacy.</p>
+
+  </div>
+</div>
+
+<!-- ===== ARTICLE 74 ===== -->
+<div class="article-block">
+  <div class="article-header">
+    <span class="article-number">74</span>
+    <div class="article-title">"The Relationship between Students' Self-Efficacy Beliefs and Their English Language Achievement (Nguyen Ngoc Lynh Dan)"</div>
+  </div>
+  <div class="article-body">
+
+    <div class="section-heading">Introduction</div>
+    <p>Vietnam's growing integration into the global economy has made English increasingly essential. Despite this, many Vietnamese university students — especially non-English majors — show poor English proficiency. The authors identify a lack of motivation and self-efficacy as key contributing factors, positioning 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="self-efficacy" size="13" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Bandura's term for one's belief in their own ability to successfully perform a specific task</span>
+        <span class="answer-reveal">self-efficacy</span>
+      </span>
+     theory as a useful lens for understanding and improving English learning outcomes.</p>
+
+    <div class="section-heading">Literature Review</div>
+    <p>Self-efficacy, defined as people's beliefs in their own ability to perform tasks (Bandura, 1997), affects decision-making, motivation, and academic 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="achievement" size="11" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Academic ___ = measured learning outcomes, often via test scores; a key dependent variable in SLA research</span>
+        <span class="answer-reveal">achievement</span>
+      </span>
+    . High self-efficacy leads to greater effort and persistence, while low self-efficacy results in avoidance and underperformance. Gender differences also play a role: females tend to show higher motivation and self-efficacy in language learning, while males lean toward science-oriented domains.</p>
+
+    <div class="section-heading">Research Gap</div>
+    <p>While self-efficacy's influence on academic performance is well-documented, there is limited research exploring this relationship specifically among 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="non-English" size="10" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ major EFL students = those studying English as a subject but whose degree is in another field</span>
+        <span class="answer-reveal">non-English</span>
+      </span>
+     major EFL students in Vietnamese universities, and particularly regarding gender differences in this context.</p>
+
+    <div class="section-heading">Aims of the Study</div>
+    <blockquote>"(1) To examine the relative strength of self-efficacy beliefs and students' performance in English<br>(2) To investigate the differences between male and female students in terms of their self-efficacy beliefs in learning English."</blockquote>
+
+    <div class="section-heading">Research Questions</div>
+    <p>The overarching question is: "How does students' motivation to learn English, as assessed by self-efficacy theory, affect their performance in English?"</p>
+    <p>With two sub-questions:</p>
+    <blockquote>"What is the relative strength of self-efficacy beliefs in predicting students' performance in English?"</blockquote>
+    <blockquote>"What are the differences between male and female students in their self-efficacy beliefs in learning English?"</blockquote>
+
+    <div class="section-heading">Participants</div>
+    <p>128 non-English major undergraduate students from Dong Nai Technology University, Bien Hoa City, Vietnam. Students were mostly from the Faculty of Technology and were at below-average English proficiency levels. Ten students were additionally selected for individual interviews.</p>
+
+    <div class="section-heading">Methodology</div>
+    <p>Instruments: The Questionnaire of English 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="Self-Efficacy" size="12" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">QESE = Questionnaire of English ___; measures learners' beliefs about their ability across four language skills</span>
+        <span class="answer-reveal">Self-Efficacy</span>
+      </span>
+     (QESE) with 32 items across four skills (listening, speaking, reading, writing) on a 7-point scale; two semi-structured interview questions; and end-of-semester test scores across four skills on a 10-point scale.</p>
+    <p>Data Collection: Questionnaires were distributed to all 128 students. Ten voluntary students were individually interviewed with responses recorded and 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="transcribed" size="11" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">To convert spoken data into written text; a standard step in qualitative data preparation</span>
+        <span class="answer-reveal">transcribed</span>
+      </span>
+    . End-of-semester scores were obtained from course instructors.</p>
+    <p>Data Analysis: Quantitative data were processed in Excel and SPSS, using Cronbach's Alpha for 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="reliability" size="11" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">Internal consistency of a scale; Cronbach's Alpha measures this; contrasted with validity</span>
+        <span class="answer-reveal">reliability</span>
+      </span>
+    , Mean and Standard Deviation for descriptive statistics, Pearson correlation to examine the self-efficacy–achievement relationship, and Independent Samples T-test for gender comparisons. Qualitative interview data were transcribed, translated from Vietnamese to English, and 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="thematically" size="13" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ analyzed = coded and grouped according to recurring themes in qualitative data</span>
+        <span class="answer-reveal">thematically</span>
+      </span>
+     analyzed.</p>
+
+    <div class="section-heading">Findings</div>
+    <p>Overall self-efficacy was low (M = 4.40/7), with speaking being the highest sub-skill (4.58) and listening the lowest (4.25). Overall English achievement was also low (M = 6.32/10), with reading being the highest sub-skill (6.69) and listening the lowest (5.90). A strong positive 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="correlation" size="11" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">A statistical measure of the relationship between two variables; r = 0.717 here indicates a strong positive link</span>
+        <span class="answer-reveal">correlation</span>
+      </span>
+     was found between self-efficacy and achievement (r = 0.717, p &lt; 0.01). Female students had significantly higher self-efficacy than male students (Sig. = 0.02 &lt; 0.05). Interview data confirmed that students with better English backgrounds and awareness of English's importance felt more confident, while those lacking vocabulary, grammar, or basic knowledge felt less so.</p>
+
+    <div class="section-heading">Discussion</div>
+    <p>The findings confirm Bandura's theory: low self-efficacy is linked to low achievement. Students' low confidence was partly attributed to their 3rd-year stage (when English becomes harder and specialized subjects take priority) and negative beliefs about the difficulty of English. The positive self-efficacy–achievement correlation is consistent with numerous prior studies (Tılfarlıoğlu &amp; Cinkara, 2009; Meera &amp; Jumana, 2016; Rahemi, 2007, among others). Regarding gender, female students outperformed males in both self-efficacy and achievement, aligning with research suggesting females have stronger 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="integrative" size="10" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">___ motivation = desire to learn a language to connect with its speakers and culture (Gardner &amp; Lambert)</span>
+        <span class="answer-reveal">integrative</span>
+      </span>
+     motivation and verbal abilities in language learning. The authors recommend that teachers use motivational strategies, define success beyond test scores, and remain sensitive to gender-based differences in motivation.</p>
+
+    <div class="section-heading">Limitations</div>
+    <p>The study involved a small, single-university sample, limiting generalizability to other Vietnamese universities or other countries. Translation of the questionnaire and interview data from Vietnamese to English may have introduced some loss of nuance or abstract meaning despite following rigorous 
+      <span class="gap-wrapper">
+        <input class="gap-input" data-answer="translation" size="11" placeholder="___" aria-label="gap">
+        <span class="hint-icon" tabindex="0">?</span>
+        <span class="hint-tooltip">The process of converting text from one language to another; ___ procedures must be rigorous in cross-linguistic research</span>
+        <span class="answer-reveal">translation</span>
+      </span>
+     procedures.</p>
+
+  </div>
+</div>
+
+</main>
+
+<div id="results-banner">
+  <span id="results-text"></span>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="results-bar"></div></div>
+</div>
+
+<script>
+  let hintsVisible = false;
+  let checked = false;
+
+  function getAllInputs() {
+    return document.querySelectorAll('.gap-input');
+  }
+
+  // Live score tracker
+  function updateLiveScore() {
+    const inputs = getAllInputs();
+    const filled = Array.from(inputs).filter(i => i.value.trim() !== '').length;
+    document.getElementById('live-score').textContent = filled + ' / ' + inputs.length + ' filled';
+  }
+
+  document.addEventListener('input', updateLiveScore);
+  updateLiveScore();
+
+  // Auto-size inputs as user types
+  document.addEventListener('input', function(e) {
+    if (e.target.classList.contains('gap-input')) {
+      const len = Math.max(e.target.getAttribute('size') || 8, e.target.value.length + 2);
+      e.target.style.width = len + 'ch';
+    }
+  });
+
+  function normalise(str) {
+    return str.trim().toLowerCase().replace(/[-–—]/g, '-');
+  }
+
+  function checkAnswers() {
+    checked = true;
+    const inputs = getAllInputs();
+    let correct = 0;
+    inputs.forEach(input => {
+      const answer = input.getAttribute('data-answer');
+      const userVal = input.value.trim();
+      input.classList.remove('correct', 'wrong');
+      if (!userVal) return;
+      if (normalise(userVal) === normalise(answer)) {
+        input.classList.add('correct');
+        correct++;
+      } else {
+        input.classList.add('wrong');
+      }
+    });
+
+    // Show answer reveals
+    document.getElementById('exercise').classList.add('show-answers');
+
+    const total = inputs.length;
+    const filled = Array.from(inputs).filter(i => i.value.trim() !== '').length;
+    const pct = Math.round((correct / total) * 100);
+
+    const banner = document.getElementById('results-banner');
+    document.getElementById('results-text').textContent =
+      '✓ ' + correct + ' correct out of ' + total + ' gaps (' + pct + '%)';
+    document.getElementById('results-bar').style.width = pct + '%';
+    banner.style.display = 'block';
+
+    setTimeout(() => { banner.style.display = 'none'; }, 6000);
+    updateLiveScore();
+  }
+
+  function resetAll() {
+    const inputs = getAllInputs();
+    inputs.forEach(input => {
+      input.value = '';
+      input.classList.remove('correct', 'wrong');
+      input.style.width = '';
+    });
+    document.getElementById('exercise').classList.remove('show-answers');
+    document.getElementById('results-banner').style.display = 'none';
+    checked = false;
+    updateLiveScore();
+  }
+
+  function toggleHints() {
+    hintsVisible = !hintsVisible;
+    document.getElementById('exercise').classList.toggle('show-hints', hintsVisible);
+  }
+</script>
+</body>
+</html>
